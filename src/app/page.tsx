@@ -65,7 +65,12 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold mb-8">Interactive Graph</h1>
+      <h1 className="text-4xl font-bold mb-8">Eberswalder Graph</h1>
+      <p className="text-lg mb-8">
+        Do you hate the eberswalder strasse and wonder how to get from A to B in the least annoying way?
+        This is the app for you!
+        Just select your start and end node and the Dijkstra will show you the shortest path between the two.    
+      </p>
       <div className="flex flex-col items-center gap-4">
         <div className="flex gap-4 items-center">
           <div className="flex flex-col gap-2">
@@ -74,7 +79,7 @@ export default function Home() {
               id="startNode"
               value={startNode}
               onChange={(e) => setStartNode(Number(e.target.value))}
-              className="px-3 py-2 border rounded-lg bg-white"
+              className="px-3 py-2 border rounded-lg bg-white text-black"
             >
               {Array.from({ length: 18 }, (_, i) => (
                 <option key={i} value={i}>Node {i}</option>
@@ -87,7 +92,7 @@ export default function Home() {
               id="endNode"
               value={endNode}
               onChange={(e) => setEndNode(Number(e.target.value))}
-              className="px-3 py-2 border rounded-lg bg-white"
+              className="px-3 py-2 border rounded-lg bg-white text-black"
             >
               {Array.from({ length: 18 }, (_, i) => (
                 <option key={i} value={i}>Node {i}</option>
@@ -108,6 +113,25 @@ export default function Home() {
             fill
             className="rounded-lg object-cover"
           />
+          {/* Legend */}
+          <div className="absolute top-4 right-4 bg-white bg-opacity-90 rounded-lg shadow p-4 flex flex-col gap-2 text-sm z-10 border border-gray-200 text-black">
+            <div className="flex items-center gap-2">
+              <svg width="32" height="8"><line x1="0" y1="4" x2="32" y2="4" stroke="#22c55e" strokeWidth="4" /></svg>
+              <span>Weight 1 (green)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg width="32" height="8"><line x1="0" y1="4" x2="32" y2="4" stroke="#eab308" strokeWidth="4" /></svg>
+              <span>Weight 2 (yellow)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg width="32" height="8"><line x1="0" y1="4" x2="32" y2="4" stroke="#ef4444" strokeWidth="4" /></svg>
+              <span>Weight 3 (red)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg width="32" height="8"><line x1="0" y1="4" x2="32" y2="4" stroke="black" strokeWidth="4" strokeDasharray="5,5" /></svg>
+              <span>Weight 0.5 (dashed)</span>
+            </div>
+          </div>
           <div className="absolute inset-0">
             <Graph 
               adjacencyMatrix={currentMatrix} 
