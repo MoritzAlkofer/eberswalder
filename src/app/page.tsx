@@ -106,7 +106,7 @@ export default function Home() {
             {showPath ? 'Show Full Graph' : `Show Shortest Path (${startNode} to ${endNode})`}
           </button>
         </div>
-        <div className="relative w-[880px] h-[812px]">
+        <div className="relative w-full max-w-[880px] h-[60vw] min-h-[300px] max-h-[812px] sm:w-[880px] sm:h-[812px]">
           <Image
             src="/eberswalder.png"
             alt="Eberswalder"
