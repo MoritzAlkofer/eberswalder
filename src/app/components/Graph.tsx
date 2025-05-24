@@ -74,13 +74,25 @@ const Graph: React.FC<GraphProps> = ({
   const nodes = Array.from({ length: nodeCount }, (_, i) => {
     const pos = getNodePosition(i);
     return (
-      <circle
-        key={`node-${i}`}
-        cx={pos.x}
-        cy={pos.y}
-        r={nodeRadius}
-        fill="white"
-      />
+      <g key={`node-${i}`}>
+        <circle
+          cx={pos.x}
+          cy={pos.y}
+          r={nodeRadius}
+          fill="white"
+        />
+        <text
+          x={pos.x}
+          y={pos.y}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill="black"
+          fontSize="12"
+          fontWeight="bold"
+        >
+          {i}
+        </text>
+      </g>
     );
   });
 

@@ -1,4 +1,5 @@
 import Graph from './components/Graph';
+import Image from 'next/image';
 
 export default function Home() {
   // Example adjacency matrix for a simple graph
@@ -24,12 +25,22 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h1 className="text-4xl font-bold mb-8">Interactive Graph</h1>
-      <Graph 
-        adjacencyMatrix={sampleMatrix} 
-        width={500} 
-        height={500} 
-        nodePositions={nodePositions}
-      />
+      <div className="relative w-[500px] h-[500px]">
+        <Image
+          src="/eberswalder.png"
+          alt="Eberswalder"
+          fill
+          className="rounded-lg object-cover"
+        />
+        <div className="absolute inset-0">
+          <Graph 
+            adjacencyMatrix={sampleMatrix} 
+            width={500} 
+            height={500} 
+            nodePositions={nodePositions}
+          />
+        </div>
+      </div>
     </main>
   );
 }
