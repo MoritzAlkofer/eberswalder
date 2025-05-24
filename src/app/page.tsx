@@ -5,6 +5,7 @@ import Graph from './components/Graph';
 import Image from 'next/image';
 import { dijkstra } from './utils/dijkstra';
 import Legend from './components/Legend';
+import Head from 'next/head';
 
 export default function Home() {
   const [showPath, setShowPath] = useState(false);
@@ -65,68 +66,76 @@ export default function Home() {
   const currentMatrix = showPath ? pathMatrix : originalMatrix;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold mb-8">Eberswalder Graph</h1>
-      <p className="text-lg mb-8">
-        Do you hate the eberswalder strasse and wonder how to get from A to B in the least annoying way?
-        This is the app for you!
-        Just select your start and end node and the Dijkstra will show you the shortest path between the two.    
-      </p>
-      <div className="flex flex-col items-center gap-4">
-        <div className="flex gap-4 items-center">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="startNode" className="text-sm font-medium">Start Node:</label>
-            <select
-              id="startNode"
-              value={startNode}
-              onChange={(e) => setStartNode(Number(e.target.value))}
-              className="px-3 py-2 border rounded-lg bg-white text-black"
+    <>
+      <Head>
+        <title>eberswalder run</title>
+        <meta name="description" content="find the best path across the worst crossing" />
+        <meta property="og:title" content="eberswalder run" />
+        <meta property="og:description" content="find the best path across the worst crossing" />
+      </Head>
+      <main className="flex min-h-screen flex-col items-center justify-center p-24 text-black">
+        <h1 className="text-4xl font-bold mb-8">Eberswalder Graph</h1>
+        <p className="text-lg mb-8">
+          Do you hate the eberswalder strasse and wonder how to get from A to B in the least annoying way?
+          This is the app for you!
+          Just select your start and end node and the Dijkstra will show you the shortest path between the two.    
+        </p>
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex gap-4 items-center">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="startNode" className="text-sm font-medium">Start Node:</label>
+              <select
+                id="startNode"
+                value={startNode}
+                onChange={(e) => setStartNode(Number(e.target.value))}
+                className="px-3 py-2 border rounded-lg bg-white text-black"
+              >
+                {Array.from({ length: 18 }, (_, i) => (
+                  <option key={i} value={i}>Node {i}</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="endNode" className="text-sm font-medium">End Node:</label>
+              <select
+                id="endNode"
+                value={endNode}
+                onChange={(e) => setEndNode(Number(e.target.value))}
+                className="px-3 py-2 border rounded-lg bg-white text-black"
+              >
+                {Array.from({ length: 18 }, (_, i) => (
+                  <option key={i} value={i}>Node {i}</option>
+                ))}
+              </select>
+            </div>
+            <button
+              onClick={() => setShowPath(!showPath)}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors mt-6"
             >
-              {Array.from({ length: 18 }, (_, i) => (
-                <option key={i} value={i}>Node {i}</option>
-              ))}
-            </select>
+              {showPath ? 'Show Full Graph' : `Show Shortest Path`}
+            </button>
           </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="endNode" className="text-sm font-medium">End Node:</label>
-            <select
-              id="endNode"
-              value={endNode}
-              onChange={(e) => setEndNode(Number(e.target.value))}
-              className="px-3 py-2 border rounded-lg bg-white text-black"
-            >
-              {Array.from({ length: 18 }, (_, i) => (
-                <option key={i} value={i}>Node {i}</option>
-              ))}
-            </select>
-          </div>
-          <button
-            onClick={() => setShowPath(!showPath)}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors mt-6"
-          >
-            {showPath ? 'Show Full Graph' : `Show Shortest Path`}
-          </button>
-        </div>
-        <div className="relative w-full max-w-[880px] h-[60vw] min-h-[300px] max-h-[812px] sm:w-[880px] sm:h-[812px]">
-          <Image
-            src="/eberswalder.png"
-            alt="Eberswalder"
-            fill
-            className="rounded-lg object-cover"
-          />
-          <div className="absolute inset-0">
-            <Graph 
-              adjacencyMatrix={currentMatrix} 
-              width={880} 
-              height={812} 
-              nodePositions={nodePositions}
+          <div className="relative w-full max-w-[880px] h-[60vw] min-h-[300px] max-h-[812px] sm:w-[880px] sm:h-[812px]">
+            <Image
+              src="/eberswalder.png"
+              alt="Eberswalder"
+              fill
+              className="rounded-lg object-cover"
             />
+            <div className="absolute inset-0">
+              <Graph 
+                adjacencyMatrix={currentMatrix} 
+                width={880} 
+                height={812} 
+                nodePositions={nodePositions}
+              />
+            </div>
+          </div>
+          <div className="mt-4 bg-white bg-opacity-90 rounded-lg shadow p-4 flex flex-row gap-4 text-sm z-10 border border-gray-200 text-black w-fit mx-auto">
+            <Legend />
           </div>
         </div>
-        <div className="mt-4 bg-white bg-opacity-90 rounded-lg shadow p-4 flex flex-row gap-4 text-sm z-10 border border-gray-200 text-black w-fit mx-auto">
-          <Legend />
-        </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
