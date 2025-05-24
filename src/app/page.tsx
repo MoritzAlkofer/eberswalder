@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Graph from './components/Graph';
 import Image from 'next/image';
 import { dijkstra } from './utils/dijkstra';
+import Legend from './components/Legend';
 
 export default function Home() {
   const [showPath, setShowPath] = useState(false);
@@ -103,7 +104,7 @@ export default function Home() {
             onClick={() => setShowPath(!showPath)}
             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors mt-6"
           >
-            {showPath ? 'Show Full Graph' : `Show Shortest Path (${startNode} to ${endNode})`}
+            {showPath ? 'Show Full Graph' : `Show Shortest Path`}
           </button>
         </div>
         <div className="relative w-full max-w-[880px] h-[60vw] min-h-[300px] max-h-[812px] sm:w-[880px] sm:h-[812px]">
@@ -113,25 +114,6 @@ export default function Home() {
             fill
             className="rounded-lg object-cover"
           />
-          {/* Legend */}
-          <div className="absolute top-4 right-4 bg-white bg-opacity-90 rounded-lg shadow p-4 flex flex-col gap-2 text-sm z-10 border border-gray-200 text-black">
-            <div className="flex items-center gap-2">
-              <svg width="32" height="8"><line x1="0" y1="4" x2="32" y2="4" stroke="#22c55e" strokeWidth="4" /></svg>
-              <span>Weight 1 (green)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg width="32" height="8"><line x1="0" y1="4" x2="32" y2="4" stroke="#eab308" strokeWidth="4" /></svg>
-              <span>Weight 2 (yellow)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg width="32" height="8"><line x1="0" y1="4" x2="32" y2="4" stroke="#ef4444" strokeWidth="4" /></svg>
-              <span>Weight 3 (red)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg width="32" height="8"><line x1="0" y1="4" x2="32" y2="4" stroke="black" strokeWidth="4" strokeDasharray="5,5" /></svg>
-              <span>Weight 0.5 (dashed)</span>
-            </div>
-          </div>
           <div className="absolute inset-0">
             <Graph 
               adjacencyMatrix={currentMatrix} 
@@ -140,6 +122,9 @@ export default function Home() {
               nodePositions={nodePositions}
             />
           </div>
+        </div>
+        <div className="mt-4 bg-white bg-opacity-90 rounded-lg shadow p-4 flex flex-row gap-4 text-sm z-10 border border-gray-200 text-black w-fit mx-auto">
+          <Legend />
         </div>
       </div>
     </main>
