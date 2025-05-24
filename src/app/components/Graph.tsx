@@ -26,12 +26,13 @@ const Graph: React.FC<GraphProps> = ({
   const centerY = height / 2;
   const radius = Math.min(width, height) / 2 - nodeRadius * 2;
 
-  const getEdgeColor = (weight: number): string => {
+  const getEdgeStyle = (weight: number): { color: string; strokeDasharray?: string } => {
     switch (weight) {
-      case 1: return '#22c55e'; // green
-      case 2: return '#eab308'; // yellow
-      case 3: return '#ef4444'; // red
-      default: return 'transparent';
+      case 0.5: return { color: 'black', strokeDasharray: '5,5' }; // dashed white line
+      case 1: return { color: '#22c55e' }; // green
+      case 2: return { color: '#eab308' }; // yellow
+      case 3: return { color: '#ef4444' }; // red
+      default: return { color: 'transparent' };
     }
   };
 
@@ -55,6 +56,7 @@ const Graph: React.FC<GraphProps> = ({
       if (weight > 0) {
         const start = getNodePosition(i);
         const end = getNodePosition(j);
+        const style = getEdgeStyle(weight);
         edges.push(
           <line
             key={`edge-${i}-${j}`}
@@ -62,8 +64,9 @@ const Graph: React.FC<GraphProps> = ({
             y1={start.y}
             x2={end.x}
             y2={end.y}
-            stroke={getEdgeColor(weight)}
+            stroke={style.color}
             strokeWidth="3"
+            strokeDasharray={style.strokeDasharray}
           />
         );
       }
