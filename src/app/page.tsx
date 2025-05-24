@@ -73,7 +73,7 @@ export default function Home() {
         <meta property="og:title" content="eberswalder run" />
         <meta property="og:description" content="find the best path across the worst crossing" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center p-24 text-black">
+      <main className="flex min-h-screen flex-col items-center justify-center p-24 text-black bg-white">
         <h1 className="text-4xl font-bold mb-8">Eberswalder Graph</h1>
         <p className="text-lg mb-8">
           Do you hate the eberswalder strasse and wonder how to get from A to B in the least annoying way?
